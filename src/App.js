@@ -11,12 +11,25 @@ class App extends Component {
       home: true
     }
   }
+
+  toggleEstimateContainer = () => {
+    this.setState({
+      home: !this.state.home
+    })
+  }
+
   render() {
     return(
       <div>
         <Grid id="app-container" verticalAlign='middle' columns={1} centered>
           <Grid.Column>
-            <Home />
+            {
+              this.state.home
+                ?
+              <Home toggleEstimateContainer={this.toggleEstimateContainer}/>
+                :
+              <div>Estimate Container Here</div>
+            }
           </Grid.Column>
         </Grid>
       </div>

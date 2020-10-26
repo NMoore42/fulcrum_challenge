@@ -16,17 +16,28 @@ const priorities = [
   { key: '5', label: '5', value: 5 }
 ]
 
+const initErrorState = {
+  firstNameError: false,
+  lastNameError:  false,
+  buildingError: false,
+  priorityError: false,
+  repairSummaryError: false
+}
+
 
 class DetailsContainer extends Component {
   constructor(props) {
     const { firstName, lastName, building, priority, repairSummary } = props.details
     super()
     this.state = {
-      firstName: firstName || "",
-      lastName: lastName || "",
-      building: building || "",
-      priority: priority || "",
-      repairSummary: repairSummary || ""
+      details: {
+        firstName: firstName || "",
+        lastName: lastName || "",
+        building: building || "",
+        priority: priority || "",
+        repairSummary: repairSummary || ""
+      },
+      errors: initErrorState
     }
   }
 
@@ -35,34 +46,63 @@ class DetailsContainer extends Component {
       return <Form.Radio
         label={priority.label}
         value={priority.value}
-        checked={this.state.priority === priority.value}
+        error={!!this.state.errors.priorityError}
+        checked={this.state.details.priority === priority.value}
         onChange={this.handleRadioSelect}
       />
     })
   }
 
-  submitDetailsForm = () => {
-    this.props.history.push("/resources")
-    this.props.handleSubmit("details", this.state)
+  submitDetailsFormHandler = () => {
+    const detailValueArr = Object.entries(this.state.details) // converts to array of arrays with two elements each: [detailKey: detailValue]
+    const errors = detailValueArr.filter(inputArr => inputArr[1] === "") // filters for missing values
+    errors.length ? this.assignErrors(detailValueArr) : this.submitDetailsForm()
   }
 
-  handleChange = e => this.setState({[e.target.name]: e.target.value })
+  submitDetailsForm = () => {
+    this.props.history.push("/resources")
+    this.props.handleSubmit("details", this.state.details)
+    this.setState({ errors: initErrorState })
+  }
 
-  handleSelect = (e, { value }) => this.setState({ building: value })
+  assignErrors = (detailValueArr) => {
+    const newErrors = {...this.state.errors}
+    detailValueArr.forEach(detail => newErrors[detail[0] + "Error"] = !detail[1])
+    this.setState({errors: newErrors})
+  }
 
-  handleRadioSelect = (e, { value }) => this.setState({ priority: value })
+  handleChange = e => {
+    const newDetails = {...this.state.details}
+    newDetails[e.target.name] = e.target.value
+    this.setState({details: newDetails })
+  }
+
+  handleSelect = (e, { value }) => {
+    const newDetails = {...this.state.details}
+    newDetails.building = value
+    this.setState({ details: newDetails  })
+  }
+
+  handleRadioSelect = (e, { value }) => {
+    const newDetails = {...this.state.details}
+    newDetails.priority = value
+    this.setState({ details: newDetails  })
+  }
 
   render(){
-    const { firstName, lastName, building, repairSummary } = this.state
+    const { firstName, lastName, building, repairSummary } = this.state.details
+    const { firstNameError, lastNameError, buildingError, repairSummaryError } = this.state.errors
     return(
       <Form>
        <Form.Group widths='equal'>
          <Form.Input
           fluid
+          error={{ content: 'Please enter your first name', pointing: 'below' }}
           label='Technician First Name'
           placeholder='Technician First Name'
           name='firstName'
           value={firstName}
+          error={!!firstNameError}
           onChange={this.handleChange}
          />
          <Form.Input
@@ -71,6 +111,7 @@ class DetailsContainer extends Component {
           placeholder='Technician Last Name'
           name='lastName'
           value={lastName}
+          error={!!lastNameError}
           onChange={this.handleChange}
          />
          <Form.Select
@@ -80,6 +121,7 @@ class DetailsContainer extends Component {
            placeholder='Building'
            name='building'
            value={building}
+           error={!!buildingError}
            onChange={this.handleSelect}
          />
        </Form.Group>
@@ -92,11 +134,12 @@ class DetailsContainer extends Component {
         placeholder='Tell us more about the issue...'
         name='repairSummary'
         value={repairSummary}
+        error={!!repairSummaryError}
         onChange={this.handleChange}
        />
        <Grid.Row className="form-spacer">
        </Grid.Row>
-       <Form.Button floated="right" onClick={this.submitDetailsForm}>Confirm and Continue</Form.Button>
+       <Form.Button floated="right" onClick={this.submitDetailsFormHandler}>Confirm and Continue</Form.Button>
      </Form>
     )
   }

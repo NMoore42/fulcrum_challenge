@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Home from '../components/Home';
+import StepCard from '../components/StepCard';
 import {useHistory} from 'react-router-dom';
 
 jest.mock('react-router-dom', () => ({
@@ -9,9 +9,10 @@ jest.mock('react-router-dom', () => ({
     }),
 }));
 
-describe("<Home />", () => {
+describe("<StepCard />", () => {
   it("renders without crashing", () => {
-    shallow(<Home />);
+    const step = {name: "details", icon: "clipboard", title: "Details", state: {}};
+    shallow(<StepCard step={step}/>);
   });
 
 });

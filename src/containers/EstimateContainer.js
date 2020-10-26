@@ -12,16 +12,23 @@ class EstimateContainer extends Component {
   constructor() {
     super()
     this.state = {
-      details: {},
+      details: {
+        firstName: "",
+        lastName: "",
+        building: "",
+        priority: "",
+        repairSummary: ""
+      },
       resources: {},
-      confirm: {},
-      active: "details"
+      confirm: {}
     }
   }
 
-  handleStepChange = (stepName) => {
+
+  handleSubmit = (formType, formValues) => {
+    formValues.completed = true
     this.setState({
-      active: stepName
+      [formType]: formValues
     })
   }
 
@@ -37,7 +44,7 @@ class EstimateContainer extends Component {
                 step={step}
                 key={index}
                 active={this.state.active == step.name}
-                handleStepChange={this.handleStepChange}
+                updateActiveStep={this.updateActiveStep}
              />
     })
   }
@@ -68,15 +75,26 @@ class EstimateContainer extends Component {
             </Grid>
           </Container>
         </Grid.Row>
-        <Grid.Row>
 
-               <Route exact path="/details" component={DetailsContainer} />
-               <Route exact path="/resources" component={ResourcesContainer} />
-               <Route exact path="/confirm" component={ConfirmContainer} />
-
+        <Grid.Row className="form-spacer">
         </Grid.Row>
-      </Grid>
 
+        <Grid.Row>
+          <Container textAlign='center' >
+            <Grid columns={1} centered>
+              <Grid.Column fluid>
+                 <Route
+                   exact path="/details"
+                   render={(props) => <DetailsContainer details={this.state.details} handleSubmit={this.handleSubmit} history={props.history} updateActiveStep={this.updateActiveStep} />}
+                   />
+                 <Route exact path="/resources" component={ResourcesContainer} />
+                 <Route exact path="/confirm" component={ConfirmContainer} />
+              </Grid.Column>
+            </Grid>
+          </Container>
+        </Grid.Row>
+
+      </Grid>
     )
   }
 }

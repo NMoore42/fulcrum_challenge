@@ -1,10 +1,12 @@
 import React from 'react';
 import { Step, Icon } from 'semantic-ui-react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const StepCard = (props) => {
   const { name, icon, title, state } = props.step
-  const history = useHistory()
+  const history = useHistory();
+  const location = useLocation();
+
 
   const handleStepChange = () => {
     history.push(`/${name}`)
@@ -13,7 +15,7 @@ const StepCard = (props) => {
   return(
     <Step
       completed={state.completed}
-      active={props.active}
+      active={location.pathname.includes(name)}
       onClick={() => handleStepChange()}
     >
       <Icon name={icon} />

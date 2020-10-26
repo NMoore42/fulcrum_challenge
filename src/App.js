@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import { Grid, Button } from 'semantic-ui-react';
 import Home from './components/Home';
+import EstimateContainer from './containers/EstimateContainer';
 import './App.css';
 
 
@@ -21,17 +21,13 @@ class App extends Component {
   render() {
     return(
       <div>
-        <Grid id="app-container" verticalAlign='middle' columns={1} centered>
-          <Grid.Column>
-            {
-              this.state.home
-                ?
-              <Home toggleEstimateContainer={this.toggleEstimateContainer}/>
-                :
-              <div>Estimate Container Here</div>
-            }
-          </Grid.Column>
-        </Grid>
+        {
+          this.state.home
+            ?
+          <Home toggleEstimateContainer={this.toggleEstimateContainer}/>
+            :
+          <EstimateContainer />
+        }
       </div>
     )
   }

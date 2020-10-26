@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+/* Establishes width and height of app grid container for easy vertical and horizontal alignment */
+#app-container {
+  height: 100vh;
+  width: 100%;
+}

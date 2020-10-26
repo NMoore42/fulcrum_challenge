@@ -1,8 +1,16 @@
 import React from 'react';
 import { Container, Image, Button, Grid } from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
 import myImage from '../logo.png';
 
 const Home = (props) => {
+  const history = useHistory()
+  history.push("/")
+
+  const handleClick = () => {
+    props.toggleEstimateContainer()
+    history.push("/details")
+  }
   return(
     <Grid id="app-container" verticalAlign='middle' columns={1} centered>
       <Grid.Column>
@@ -16,7 +24,7 @@ const Home = (props) => {
                 color="blue"
                 content="Get Started"
                 size="huge"
-                onClick={props.toggleEstimateContainer}
+                onClick={handleClick}
               />
             </Grid.Column>
           </Grid>

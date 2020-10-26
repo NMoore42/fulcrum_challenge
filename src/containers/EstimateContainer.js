@@ -1,13 +1,19 @@
 import { Component } from 'react';
 import { Container, Image, Button, Grid, Icon, Step } from 'semantic-ui-react';
+import { Route } from 'react-router-dom';
+import StepCard from '../components/StepCard'
+import DetailsContainer from './DetailsContainer'
+import ResourcesContainer from './ResourcesContainer'
+import ConfirmContainer from './ConfirmContainer'
 import myImage from '../logo.png';
+
 
 class EstimateContainer extends Component {
   constructor() {
     super()
     this.state = {
       details: {},
-      materialAndLabor: {},
+      resources: {},
       confirm: {},
       active: "details"
     }
@@ -19,9 +25,27 @@ class EstimateContainer extends Component {
     })
   }
 
+  renderStepCards = () => {
+    const steps = [
+      {name: "details", icon: "clipboard", title: "Details", state: this.state.details},
+      {name: "resources", icon: "calculator", title: "Materials and Labor", state: this.state.resources},
+      {name: "confirm", icon: "eye", title: "Confirm Estimate", state: this.state.confirm}
+    ]
+
+    return steps.map((step, index) => {
+      return <StepCard
+                step={step}
+                key={index}
+                active={this.state.active == step.name}
+                handleStepChange={this.handleStepChange}
+             />
+    })
+  }
+
   render(){
-    const { details, materialAndLabor, confirm, active } = this.state
+    const { details, resources, confirm, active } = this.state
     return(
+
       <Grid centered>
         <Grid.Row>
           <Container textAlign='center' >
@@ -38,46 +62,21 @@ class EstimateContainer extends Component {
             <Grid columns={1} centered>
               <Grid.Column fluid>
                 <Step.Group widths={3}>
-
-                 <Step
-                   completed={details.completed}
-                   active={active == "details"}
-                   onClick={() => this.handleStepChange("details")}
-                 >
-                   <Icon name='clipboard' />
-                   <Step.Content>
-                     <Step.Title>Details</Step.Title>
-                   </Step.Content>
-                 </Step>
-
-                 <Step
-                  completed={materialAndLabor.completed}
-                  active={active == "materialAndLabor"}
-                  onClick={() => this.handleStepChange("materialAndLabor")}
-                 >
-                   <Icon name='calculator' />
-                   <Step.Content>
-                     <Step.Title>Material and Labor</Step.Title>
-                   </Step.Content>
-                 </Step>
-
-                 <Step
-                  completed={confirm.completed}
-                  active={active == "confirm"}
-                  onClick={() => this.handleStepChange("confirm")}
-                 >
-                   <Icon name='eye' />
-                   <Step.Content>
-                     <Step.Title>Confirm Estimate</Step.Title>
-                   </Step.Content>
-                 </Step>
-
+                  {this.renderStepCards()}
                 </Step.Group>
               </Grid.Column>
             </Grid>
           </Container>
         </Grid.Row>
+        <Grid.Row>
+
+               <Route exact path="/details" component={DetailsContainer} />
+               <Route exact path="/resources" component={ResourcesContainer} />
+               <Route exact path="/confirm" component={ConfirmContainer} />
+
+        </Grid.Row>
       </Grid>
+
     )
   }
 }

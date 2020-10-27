@@ -19,7 +19,23 @@ class EstimateContainer extends Component {
         priority: "",
         repairSummary: ""
       },
-      resources: [],
+      resources: [
+        {
+          workTask: "Trimming",
+          workItems: [
+            {description: "Demolition", qty: 10, units: "hours", labor: 1000, materials: 0}
+          ]
+        },
+        {
+          workTask: "Painting",
+          workItems: [
+            {description: "Prep", qty: 1, units: "hours", labor: 1000, materials: 34},
+            {description: "Paint", qty: 3, units: "gallons", labor: 56, materials: 110},
+            {description: "Tape", qty: 2, units: "eachs", labor: 0, materials: 20},
+            {description: "Trim", qty: 11, units: "2x4", labor: 600, materials: 320}
+          ]
+        },
+      ],
       confirm: {}
     }
   }

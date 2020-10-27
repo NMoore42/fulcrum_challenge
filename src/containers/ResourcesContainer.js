@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import { Icon, Table, Button, Grid, Popup, Container } from 'semantic-ui-react'
+import { Icon, Table, Button, Grid, Popup, Container } from 'semantic-ui-react';
+import WorkCard from '../components/WorkCard';
 
 class ResourcesContainer extends Component {
   constructor() {
@@ -14,7 +15,9 @@ class ResourcesContainer extends Component {
   }
 
   renderWorkCards = () => {
-    return <p>Hi</p>
+    return <Table.Body>
+            {this.props.resources.map( workTask => <WorkCard workTask={workTask} />)}
+           </Table.Body>
   }
 
   toggleConfirmPopup = () => {
@@ -65,6 +68,7 @@ class ResourcesContainer extends Component {
                 <Table.HeaderCell textAlign='center'>Total</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
+            {this.renderWorkCards()}
           </Table>
           {!!this.props.resources.length || this.renderTaskStatement()}
         </div>

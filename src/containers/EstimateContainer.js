@@ -19,7 +19,7 @@ class EstimateContainer extends Component {
         priority: "",
         repairSummary: ""
       },
-      resources: {},
+      resources: [],
       confirm: {}
     }
   }
@@ -44,7 +44,6 @@ class EstimateContainer extends Component {
                 step={step}
                 key={index}
                 active={this.state.active == step.name}
-                updateActiveStep={this.updateActiveStep}
              />
     })
   }
@@ -68,7 +67,7 @@ class EstimateContainer extends Component {
           <Container textAlign='center' >
             <Grid columns={1} centered>
               <Grid.Column fluid>
-                <Step.Group widths={3}>
+                <Step.Group widths={3} unstackable>
                   {this.renderStepCards()}
                 </Step.Group>
               </Grid.Column>
@@ -85,9 +84,12 @@ class EstimateContainer extends Component {
               <Grid.Column fluid>
                  <Route
                    exact path="/details"
-                   render={(props) => <DetailsContainer details={this.state.details} handleSubmit={this.handleSubmit} history={props.history} updateActiveStep={this.updateActiveStep} />}
+                   render={(props) => <DetailsContainer details={this.state.details} handleSubmit={this.handleSubmit} history={props.history} />}
                    />
-                 <Route exact path="/resources" component={ResourcesContainer} />
+                   <Route
+                     exact path="/resources"
+                     render={(props) => <ResourcesContainer resources={this.state.resources} handleSubmit={this.handleSubmit} history={props.history} />}
+                     />
                  <Route exact path="/confirm" component={ConfirmContainer} />
               </Grid.Column>
             </Grid>

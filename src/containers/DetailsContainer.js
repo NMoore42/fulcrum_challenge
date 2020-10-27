@@ -18,7 +18,7 @@ const priorities = [
 
 const initErrorState = {
   firstNameError: false,
-  lastNameError:  false,
+  lastNameError: false,
   buildingError: false,
   priorityError: false,
   repairSummaryError: false
@@ -46,7 +46,7 @@ class DetailsContainer extends Component {
       return <Form.Radio
         label={priority.label}
         value={priority.value}
-        error={!!this.state.errors.priorityError}
+        error={this.state.errors.priorityError}
         checked={this.state.details.priority === priority.value}
         onChange={this.handleRadioSelect}
       />
@@ -102,7 +102,7 @@ class DetailsContainer extends Component {
           placeholder='Technician First Name'
           name='firstName'
           value={firstName}
-          error={!!firstNameError}
+          error={firstNameError}
           onChange={this.handleChange}
          />
          <Form.Input
@@ -111,7 +111,7 @@ class DetailsContainer extends Component {
           placeholder='Technician Last Name'
           name='lastName'
           value={lastName}
-          error={!!lastNameError}
+          error={lastNameError}
           onChange={this.handleChange}
          />
          <Form.Select
@@ -121,7 +121,7 @@ class DetailsContainer extends Component {
            placeholder='Building'
            name='building'
            value={building}
-           error={!!buildingError}
+           error={buildingError}
            onChange={this.handleSelect}
          />
        </Form.Group>
@@ -133,11 +133,12 @@ class DetailsContainer extends Component {
         label='Repair Summary'
         placeholder='Tell us more about the issue...'
         name='repairSummary'
+        style={{ minHeight: "20vh" }}
         value={repairSummary}
-        error={!!repairSummaryError}
+        error={repairSummaryError}
         onChange={this.handleChange}
        />
-       <Grid.Row className="form-spacer">
+       <Grid.Row className="button-spacer">
        </Grid.Row>
        <Form.Button floated="right" onClick={this.submitDetailsFormHandler}>Confirm and Continue</Form.Button>
      </Form>

@@ -43,6 +43,25 @@
   width: 100%;
 }
 
+#work-container {
+  height: 27vh;
+  width: 100%;
+}
+
 .form-spacer {
+  height: 3vh;
+}
+
+.work-task-btn-spacer {
   height: 10vh;
+}
+
+.button-spacer {
+  height: 13vh;
+}
+
+.container-table {
+  border: solid 1px darkgrey;
+  height: 41.3vh;
+  overflow-y: scroll;  /* or auto */
 }

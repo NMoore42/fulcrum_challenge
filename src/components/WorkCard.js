@@ -36,7 +36,7 @@ const WorkCard = (props) => {
                 <Table.Cell textAlign='right'>{workItem.units}</Table.Cell>
                 <Table.Cell textAlign='center'>${workItem.labor}</Table.Cell>
                 <Table.Cell textAlign='center'>${workItem.materials}</Table.Cell>
-                <Table.Cell textAlign='center'>${workItem.labor + workItem.materials}</Table.Cell>
+                <Table.Cell textAlign='center'>${parseInt(workItem.labor) + parseInt(workItem.materials)}</Table.Cell>
               </Table.Row>
       } else {
         frag = <Table.Row>
@@ -45,7 +45,7 @@ const WorkCard = (props) => {
                 <Table.Cell textAlign='right'>{workItem.units}</Table.Cell>
                 <Table.Cell textAlign='center'>${workItem.labor}</Table.Cell>
                 <Table.Cell textAlign='center'>${workItem.materials}</Table.Cell>
-                <Table.Cell textAlign='center'>${workItem.labor + workItem.materials}</Table.Cell>
+                <Table.Cell textAlign='center'>${parseInt(workItem.labor) + parseInt(workItem.materials)}</Table.Cell>
               </Table.Row>
 
       }

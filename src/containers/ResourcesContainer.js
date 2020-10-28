@@ -1,12 +1,13 @@
 import { Component } from 'react';
 import { Icon, Table, Button, Grid, Popup, Container } from 'semantic-ui-react';
 import WorkCard from '../components/WorkCard';
+import TaskModal from '../components/TaskModal'
 
 class ResourcesContainer extends Component {
   constructor() {
     super()
     this.state = {
-
+      open: false
     }
   }
 
@@ -36,6 +37,10 @@ class ResourcesContainer extends Component {
     }
   }
 
+  setOpen = (status) => {
+    this.setState({open: status})
+  }
+
   renderTaskStatement = () => {
     return (
       <Grid id="work-container" verticalAlign='middle' columns={1} centered >
@@ -57,7 +62,7 @@ class ResourcesContainer extends Component {
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell textAlign='center' rowSpan='2'>Work Task</Table.HeaderCell>
-                <Table.HeaderCell textAlign='center' rowSpan='2'>Description</Table.HeaderCell>
+                <Table.HeaderCell textAlign='center' rowSpan='2'>Item Description</Table.HeaderCell>
                 <Table.HeaderCell textAlign='center' rowSpan='4'>Qty</Table.HeaderCell>
                 <Table.HeaderCell textAlign='center' rowSpan='4'>Units</Table.HeaderCell>
                 <Table.HeaderCell textAlign='center' colSpan='3'>Costs</Table.HeaderCell>
@@ -73,12 +78,7 @@ class ResourcesContainer extends Component {
           {!!this.props.resources.length || this.renderTaskStatement()}
         </div>
         <Grid.Row className="work-task-btn-spacer">
-          <Popup
-            content="Click to add work task"
-            trigger={
-              <Button style={{marginTop : 7}} circular icon='plus' floated="right" size="huge" />
-            }
-          />
+          <TaskModal setOpen={this.setOpen} open={this.state.open} handleWorkTaskSubmit={this.props.handleWorkTaskSubmit}/>
         </Grid.Row>
 
         <Button content="Back" floated="left" onClick={() => this.handleStepClick("/details")} />

@@ -14,8 +14,8 @@ const WorkCard = (props) => {
                 <Table.Cell textAlign='center'>{workItem.description}</Table.Cell>
                 <Table.Cell textAlign='center'>{workItem.qty}</Table.Cell>
                 <Table.Cell textAlign='center'>{workItem.units}</Table.Cell>
-                <Table.Cell textAlign='center'>${workItem.labor}</Table.Cell>
                 <Table.Cell textAlign='center'>${workItem.materials}</Table.Cell>
+                <Table.Cell textAlign='center'>${workItem.labor}</Table.Cell>
                 <Table.Cell textAlign='center'>${parseInt(workItem.labor) + parseInt(workItem.materials)}</Table.Cell>
               </Table.Row>
       } else {
@@ -23,8 +23,8 @@ const WorkCard = (props) => {
                 <Table.Cell textAlign='center'>{workItem.description}</Table.Cell>
                 <Table.Cell textAlign='center'>{workItem.qty}</Table.Cell>
                 <Table.Cell textAlign='center'>{workItem.units}</Table.Cell>
-                <Table.Cell textAlign='center'>${workItem.labor}</Table.Cell>
                 <Table.Cell textAlign='center'>${workItem.materials}</Table.Cell>
+                <Table.Cell textAlign='center'>${workItem.labor}</Table.Cell>
                 <Table.Cell textAlign='center'>${parseInt(workItem.labor) + parseInt(workItem.materials)}</Table.Cell>
               </Table.Row>
 

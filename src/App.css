@@ -69,3 +69,16 @@
   height: 41.3vh;
   overflow-y: scroll;  /* or auto */
 }
+
+.messages {
+  left: 50%;
+  margin-left: -48%;
+  position: fixed;
+  top: 45px;
+  width: 96%;
+  z-index: 100;
+}
+
+.summary-align {
+  max-width: 500px;
+}

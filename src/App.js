@@ -9,13 +9,20 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      home: true
+      home: true,
+      success: false
     }
   }
 
   toggleEstimateContainer = () => {
     this.setState({
       home: !this.state.home
+    })
+  }
+
+  submitSuccess = () => {
+    this.setState({
+      success: true
     })
   }
 
@@ -26,9 +33,11 @@ class App extends Component {
           {
             this.state.home
               ?
-            <Home toggleEstimateContainer={this.toggleEstimateContainer}/>
+            <Home toggleEstimateContainer={this.toggleEstimateContainer} success={this.state.success}/>
               :
-            <EstimateContainer />
+            <EstimateContainer
+              submitSuccess={this.submitSuccess}
+              toggleEstimateContainer={this.toggleEstimateContainer} />
           }
         </div>
       </Router>

@@ -62,6 +62,7 @@ class DetailsContainer extends Component {
   submitDetailsForm = () => {
     this.props.history.push("/resources")
     this.props.handleSubmit("details", this.state.details)
+    this.props.handleStepFinalize("detailsComplete")
     this.setState({ errors: initErrorState })
   }
 

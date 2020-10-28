@@ -20,26 +20,29 @@ class EstimateContainer extends Component {
         repairSummary: ""
       },
       resources: [],
-      confirm: {}
+      resourcesComplete: false,
+      detailsComplete: false,
+      confirmComplete: false
     }
   }
 
   handleSubmit = (formType, formValues) => {
-    formValues.completed = true
-    this.setState({
-      [formType]: formValues
-    })
+    this.setState({[formType]: formValues})
   }
 
   handleWorkTaskSubmit = (newWorkTask) => {
     this.setState({resources: [...this.state.resources, newWorkTask]})
   }
 
+  handleStepFinalize = (step) => {
+    this.setState({[step]: true})
+  }
+
   renderStepCards = () => {
     const steps = [
-      {name: "details", icon: "clipboard", title: "Details", state: this.state.details},
-      {name: "resources", icon: "calculator", title: "Materials and Labor", state: this.state.resources},
-      {name: "confirm", icon: "eye", title: "Review Estimate", state: this.state.confirm}
+      {name: "details", icon: "clipboard", title: "Details", completed: this.state.detailsComplete},
+      {name: "resources", icon: "calculator", title: "Materials and Labor", completed: this.state.resourcesComplete},
+      {name: "confirm", icon: "eye", title: "Review Estimate", completed: this.state.confirmComplete}
     ]
 
     return steps.map((step, index) => {
@@ -87,15 +90,16 @@ class EstimateContainer extends Component {
               <Grid.Column fluid>
                  <Route
                    exact path="/details"
-                   render={(props) => <DetailsContainer details={this.state.details} handleSubmit={this.handleSubmit} history={props.history} />}
+                   render={(props) => <DetailsContainer details={this.state.details} handleSubmit={this.handleSubmit} history={props.history} handleStepFinalize={this.handleStepFinalize}/>}
                    />
                  <Route
                    exact path="/resources"
-                   render={(props) => <ResourcesContainer resources={this.state.resources} handleWorkTaskSubmit={this.handleWorkTaskSubmit} history={props.history} />}
+                   render={(props) => <ResourcesContainer resources={this.state.resources} handleStepFinalize={this.handleStepFinalize} handleWorkTaskSubmit={this.handleWorkTaskSubmit} history={props.history} />}
                    />
                  <Route
                    exact path="/confirm"
-                   render={(props) => <ConfirmContainer estimate={this.state} history={props.history} />}
+                   render={(props) => <ConfirmContainer estimate={this.state} history={props.history} toggleEstimateContainer={this.props.toggleEstimateContainer}
+                   handleStepFinalize={this.handleStepFinalize} submitSuccess={this.props.submitSuccess}/>}
                    />
               </Grid.Column>
             </Grid>

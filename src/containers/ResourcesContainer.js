@@ -15,6 +15,11 @@ class ResourcesContainer extends Component {
     this.props.history.push(route)
   }
 
+  workTaskFinalize = () => {
+    this.handleStepClick("/confirm")
+    this.props.handleStepFinalize("resourcesComplete")
+  }
+
   renderWorkCards = () => {
     return <Table.Body>
             {this.props.resources.map( workTask => <WorkCard workTask={workTask} />)}
@@ -26,7 +31,7 @@ class ResourcesContainer extends Component {
       return <Button
               content="Confirm and Continue"
               floated="right"
-              onClick={() => this.handleStepClick("/confirm")} />
+              onClick={this.workTaskFinalize} />
     } else {
       return <Popup
               content='Must have at least one work task'

@@ -4,52 +4,63 @@ import { Table } from 'semantic-ui-react';
 
 const WorkCard = (props) => {
 
-  return(
-    <Table.Body>
-      <Table.Row>
-        <Table.Cell>Alpha Team</Table.Cell>
-        <Table.Cell>Project 1</Table.Cell>
-        <Table.Cell textAlign='right'>2</Table.Cell>
-        <Table.Cell textAlign='right'>2</Table.Cell>
-        <Table.Cell textAlign='center'>
-          11
-        </Table.Cell>
-        <Table.Cell />
-        <Table.Cell />
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell rowSpan='3'>Beta Team</Table.Cell>
-        <Table.Cell>Project 1</Table.Cell>
-        <Table.Cell textAlign='right'>52</Table.Cell>
-        <Table.Cell textAlign='right'>52</Table.Cell>
-        <Table.Cell textAlign='center'>
-          11
-        </Table.Cell>
-        <Table.Cell />
-        <Table.Cell />
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Project 2</Table.Cell>
-        <Table.Cell textAlign='right'>12</Table.Cell>
-        <Table.Cell textAlign='right'>52</Table.Cell>
-        <Table.Cell />
-        <Table.Cell textAlign='center'>
-          11
-        </Table.Cell>
-        <Table.Cell />
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Project 3</Table.Cell>
-        <Table.Cell textAlign='right'>21</Table.Cell>
-        <Table.Cell textAlign='right'>52</Table.Cell>
-        <Table.Cell textAlign='center'>
-          11
-        </Table.Cell>
-        <Table.Cell />
-        <Table.Cell />
-      </Table.Row>
-    </Table.Body>
+  // const tasks = [
+  //   {
+  //     workTask: "Trimming",
+  //     workItems: [
+  //       {description: "Demolition", qty: 10, units: "hours", labor: 1000, materials: 0}
+  //     ]
+  //   }
+  // ]
+
+  // const renderWorkTask = () => {
+  //   props.workTask.map( task => {
+  //     return (
+  //       <Table.Row>
+  //         <Table.Cell rowSpan={task.workItem.length}>{task.workTask}</Table.Cell>
+  //         {renderWorkItems(task.workItems)}
+  //       </Table.Row>
+  //     )
+  //   })
+  // }
+
+  const renderWorkItems = () => {
+    let returnCells = []
+    props.workTask.workItems.forEach( (workItem, index) => {
+      let frag;
+      if (!index) {
+        frag = <Table.Row>
+                <Table.Cell rowSpan={props.workTask.workItems.length}>{props.workTask.workTask}</Table.Cell>
+                <Table.Cell>{workItem.description}</Table.Cell>
+                <Table.Cell textAlign='right'>{workItem.qty}</Table.Cell>
+                <Table.Cell textAlign='right'>{workItem.units}</Table.Cell>
+                <Table.Cell textAlign='center'>${workItem.labor}</Table.Cell>
+                <Table.Cell textAlign='center'>${workItem.materials}</Table.Cell>
+                <Table.Cell textAlign='center'>${parseInt(workItem.labor) + parseInt(workItem.materials)}</Table.Cell>
+              </Table.Row>
+      } else {
+        frag = <Table.Row>
+                <Table.Cell>{workItem.description}</Table.Cell>
+                <Table.Cell textAlign='right'>{workItem.qty}</Table.Cell>
+                <Table.Cell textAlign='right'>{workItem.units}</Table.Cell>
+                <Table.Cell textAlign='center'>${workItem.labor}</Table.Cell>
+                <Table.Cell textAlign='center'>${workItem.materials}</Table.Cell>
+                <Table.Cell textAlign='center'>${parseInt(workItem.labor) + parseInt(workItem.materials)}</Table.Cell>
+              </Table.Row>
+
+      }
+      returnCells.push(frag)
+    })
+    return returnCells.flat()
+  }
+
+  return (
+    <React.Fragment>
+      {renderWorkItems()}
+    </React.Fragment>
   )
 }
+
+
 
 export default WorkCard;

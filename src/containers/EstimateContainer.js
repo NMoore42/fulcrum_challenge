@@ -32,6 +32,10 @@ class EstimateContainer extends Component {
     })
   }
 
+  handleWorkTaskSubmit = (newWorkTask) => {
+    this.setState({resources: [...this.state.resources, newWorkTask]})
+  }
+
   renderStepCards = () => {
     const steps = [
       {name: "details", icon: "clipboard", title: "Details", state: this.state.details},
@@ -88,7 +92,7 @@ class EstimateContainer extends Component {
                    />
                    <Route
                      exact path="/resources"
-                     render={(props) => <ResourcesContainer resources={this.state.resources} handleSubmit={this.handleSubmit} history={props.history} />}
+                     render={(props) => <ResourcesContainer resources={this.state.resources} handleWorkTaskSubmit={this.handleWorkTaskSubmit} history={props.history} />}
                      />
                  <Route exact path="/confirm" component={ConfirmContainer} />
               </Grid.Column>

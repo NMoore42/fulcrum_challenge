@@ -24,7 +24,6 @@ class EstimateContainer extends Component {
     }
   }
 
-
   handleSubmit = (formType, formValues) => {
     formValues.completed = true
     this.setState({
@@ -40,7 +39,7 @@ class EstimateContainer extends Component {
     const steps = [
       {name: "details", icon: "clipboard", title: "Details", state: this.state.details},
       {name: "resources", icon: "calculator", title: "Materials and Labor", state: this.state.resources},
-      {name: "confirm", icon: "eye", title: "Confirm Estimate", state: this.state.confirm}
+      {name: "confirm", icon: "eye", title: "Review Estimate", state: this.state.confirm}
     ]
 
     return steps.map((step, index) => {
@@ -90,11 +89,14 @@ class EstimateContainer extends Component {
                    exact path="/details"
                    render={(props) => <DetailsContainer details={this.state.details} handleSubmit={this.handleSubmit} history={props.history} />}
                    />
-                   <Route
-                     exact path="/resources"
-                     render={(props) => <ResourcesContainer resources={this.state.resources} handleWorkTaskSubmit={this.handleWorkTaskSubmit} history={props.history} />}
-                     />
-                 <Route exact path="/confirm" component={ConfirmContainer} />
+                 <Route
+                   exact path="/resources"
+                   render={(props) => <ResourcesContainer resources={this.state.resources} handleWorkTaskSubmit={this.handleWorkTaskSubmit} history={props.history} />}
+                   />
+                 <Route
+                   exact path="/confirm"
+                   render={(props) => <ConfirmContainer estimate={this.state} history={props.history} />}
+                   />
               </Grid.Column>
             </Grid>
           </Container>

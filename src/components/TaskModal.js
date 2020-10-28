@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Button, Header, Image, Modal, Form, Container } from 'semantic-ui-react'
+import { Button, Header, Image, Modal, Form, Container, Message } from 'semantic-ui-react'
 import NewItemCard from './NewItemCard'
 
 class TaskModal extends Component {
@@ -15,7 +15,8 @@ class TaskModal extends Component {
           labor: "",
           materials: ""
         }
-      ]
+      ],
+      error: false
     }
   }
 
@@ -47,9 +48,25 @@ class TaskModal extends Component {
     })
   }
 
-  handleWorkTaskSubmit = () => {
+  detectErrors = () => {
+    const strippedData = []
+    strippedData.push(this.state.workTask)
+    this.state.workItems.forEach(item => strippedData.push(Object.entries(item).flat()))
+    return strippedData.flat().includes("")
+  } //strips all data into flatten array of state, checks to see if there is a non value of "" present.  If so, returns true if non-value present.
+
+  submitWorkTask = () => {
     this.props.setOpen(false)
     this.props.handleWorkTaskSubmit(this.state)
+    this.clearState()
+  }
+
+  closeModal = () => {
+    this.props.setOpen(false)
+    this.clearState()
+  }
+
+  clearState = () => {
     this.setState({
       workTask: "",
       workItems: [
@@ -60,8 +77,17 @@ class TaskModal extends Component {
           labor: "",
           materials: ""
         }
-      ]
+      ],
+      error: false
     })
+  }
+
+  assignErrors = () => {
+    this.setState({error: true})
+  }
+
+  handleWorkTaskSubmit = () => {
+    this.detectErrors() ? this.assignErrors() : this.submitWorkTask()
   }
 
 
@@ -96,7 +122,7 @@ class TaskModal extends Component {
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          <Button color='darkgrey' onClick={() => this.props.setOpen(false)}>
+          <Button color='darkgrey' onClick={this.closeModal}>
             Cancel
           </Button>
           <Button
@@ -104,7 +130,13 @@ class TaskModal extends Component {
             onClick={this.handleWorkTaskSubmit}
             color='blue'
           />
+          <Message hidden={!this.state.error} negative>
+            <Container textAlign="center">
+            <Message.Header >Please fill out all fields to continue</Message.Header>
+            </Container>
+          </Message>
         </Modal.Actions>
+
       </Modal>
     )
   }

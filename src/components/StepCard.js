@@ -16,7 +16,6 @@ const StepCard = (props) => {
     <Step
       completed={completed}
       active={location.pathname.includes(name)}
-      onClick={() => handleStepChange()}
     >
       <Icon name={icon} />
       <Step.Content>

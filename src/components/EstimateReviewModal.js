@@ -23,6 +23,7 @@ const EstimateReviewModal = (props) => {
 
   const handleOpen = () => {
     setOpen(true)
+    props.confirmReview()
     props.handleStepFinalize("confirmComplete")
   }
 

@@ -23,6 +23,10 @@ class TaskModal extends Component {
     }
   }
 
+  newOrEdit = () => {
+    return this.props.workTaskEdit ? "Edit" : "New"
+  }
+
   renderNewItemCards = () => {
     return this.state.workItems.map((workItem, index) => {
       return <NewItemCard taskNum={index + 1} {...workItem} handleChange={this.handleChange}/>
@@ -116,7 +120,7 @@ class TaskModal extends Component {
         open={this.props.open}
         trigger={<div hidden={this.props.hideBtn}><Button style={{marginTop : 7}} circular icon='plus' floated="right" size="huge" /></div>}
       >
-        <Modal.Header>New Work Task</Modal.Header>
+        <Modal.Header>{this.newOrEdit()} Work Task</Modal.Header>
         <Modal.Content>
           <Form>
             <Form.Group widths='equal'>

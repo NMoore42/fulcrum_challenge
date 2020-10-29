@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon, Image, Modal, Table, Divider, Grid, Container } from 'semantic-ui-react'
+import { Button, Icon, Modal, Table, Grid } from 'semantic-ui-react'
 import WorkCard from './WorkCard'
 
 const EstimateReviewModal = (props) => {
@@ -82,7 +82,7 @@ const EstimateReviewModal = (props) => {
               <Table.Cell active textAlign='center' colSpan='4'><b>Total</b></Table.Cell>
               <Table.Cell active textAlign='center'><b>${totalMaterials("materials").toFixed(2)}</b></Table.Cell>
               <Table.Cell active textAlign='center'><b>${totalMaterials("labor").toFixed(2)}</b></Table.Cell>
-              <Table.Cell active textAlign='center'><b>${(totalMaterials("materials") + totalMaterials("materials")).toFixed(2)}</b></Table.Cell>
+              <Table.Cell active textAlign='center'><b>${(totalMaterials("materials") + totalMaterials("labor")).toFixed(2)}</b></Table.Cell>
             </Table.Row>
           </Table>
         </Modal.Description>

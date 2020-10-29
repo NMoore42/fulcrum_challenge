@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import StepCard from '../components/StepCard';
-import {useHistory} from 'react-router-dom';
+
 
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({

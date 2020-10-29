@@ -30,8 +30,7 @@ const Home = (props) => {
                 color="blue"
                 content="Get Started"
                 size="huge"
-                onClick={handleClick}
-              />
+                onClick={handleClick} />
             </Grid.Column>
           </Grid>
         </Container>

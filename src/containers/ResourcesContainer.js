@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Icon, Table, Button, Grid, Popup, Container } from 'semantic-ui-react';
+import { Table, Button, Grid, Popup, Container } from 'semantic-ui-react';
 import WorkCard from '../components/WorkCard';
 import TaskModal from '../components/TaskModal'
 
@@ -83,7 +83,10 @@ class ResourcesContainer extends Component {
           {!!this.props.resources.length || this.renderTaskStatement()}
         </div>
         <Grid.Row className="work-task-btn-spacer">
-          <TaskModal setOpen={this.setOpen} open={this.state.open} handleWorkTaskSubmit={this.props.handleWorkTaskSubmit} />
+          <TaskModal
+            setOpen={this.setOpen}
+            open={this.state.open}
+            handleWorkTaskSubmit={this.props.handleWorkTaskSubmit} />
         </Grid.Row>
 
         <Button content="Back" floated="left" onClick={() => this.handleStepClick("/details")} />

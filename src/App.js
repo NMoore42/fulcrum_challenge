@@ -33,7 +33,9 @@ class App extends Component {
           {
             this.state.home
               ?
-            <Home toggleEstimateContainer={this.toggleEstimateContainer} success={this.state.success}/>
+            <Home
+              toggleEstimateContainer={this.toggleEstimateContainer}
+              success={this.state.success}/>
               :
             <EstimateContainer
               submitSuccess={this.submitSuccess}

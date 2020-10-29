@@ -9,7 +9,3 @@ The overview of the challenge was to build a simple interface that allows a cons
 In this project directory, you can run:
 
 ### `npm install && npm start`
-
-To implement tests for this project, you can run:
-
-### `npm test`

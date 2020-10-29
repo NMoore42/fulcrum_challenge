@@ -1,11 +1,12 @@
 import { Component } from 'react'
 import { Button, Header, Image, Modal, Form, Container, Message } from 'semantic-ui-react'
 import NewItemCard from './NewItemCard'
+import uuid from 'react-uuid'
 
 class TaskModal extends Component {
-  constructor() {
-    super()
-    this.state = {
+  constructor(props) {
+    super(props)
+    this.state = this.props.workTaskEdit || {
       workTask: "",
       workItems: [
         {
@@ -13,10 +14,12 @@ class TaskModal extends Component {
           qty: "",
           units: "",
           labor: "",
-          materials: ""
+          materials: "",
+          id: uuid()
         }
       ],
-      error: false
+      error: false,
+      id: uuid()
     }
   }
 
@@ -30,9 +33,10 @@ class TaskModal extends Component {
     this.setState({workTask: e.target.value})
   }
 
-  handleChange = (e) => {
+  handleChange = (e, id) => {
     const newWorkItemsArr = this.state.workItems;
-    newWorkItemsArr[newWorkItemsArr.length - 1][e.target.name] = e.target.value
+    const changedWorkItem = newWorkItemsArr.find( workItem => workItem.id === id)
+    changedWorkItem[e.target.name] = e.target.value
     this.setState({workItems: newWorkItemsArr})
   }
 
@@ -43,7 +47,8 @@ class TaskModal extends Component {
         qty: "",
         units: "",
         labor: "",
-        materials: ""
+        materials: "",
+        id: uuid()
       }]
     })
   }
@@ -75,10 +80,12 @@ class TaskModal extends Component {
           qty: "",
           units: "",
           labor: "",
-          materials: ""
+          materials: "",
+          id: uuid()
         }
       ],
-      error: false
+      error: false,
+      id: uuid()
     })
   }
 
@@ -107,7 +114,7 @@ class TaskModal extends Component {
         onClose={() => this.props.setOpen(false)}
         onOpen={() => this.props.setOpen(true)}
         open={this.props.open}
-        trigger={<Button style={{marginTop : 7}} circular icon='plus' floated="right" size="huge" />}
+        trigger={<div hidden={this.props.hideBtn}><Button style={{marginTop : 7}} circular icon='plus' floated="right" size="huge" /></div>}
       >
         <Modal.Header>New Work Task</Modal.Header>
         <Modal.Content>

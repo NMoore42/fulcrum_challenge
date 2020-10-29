@@ -7,7 +7,7 @@ const EstimateReviewModal = (props) => {
 
   const renderWorkCards = () => {
     return <Table.Body>
-            {props.resources.map( workTask => <WorkCard workTask={workTask} />)}
+            {props.resources.map( workTask => <WorkCard workTask={workTask} hidden={true}/>)}
            </Table.Body>
   }
 

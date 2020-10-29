@@ -6,6 +6,7 @@ import DetailsContainer from './DetailsContainer'
 import ResourcesContainer from './ResourcesContainer'
 import ConfirmContainer from './ConfirmContainer'
 import myImage from '../logo.png';
+import TaskModal from '../components/TaskModal'
 
 
 class EstimateContainer extends Component {
@@ -22,7 +23,9 @@ class EstimateContainer extends Component {
       resources: [],
       resourcesComplete: false,
       detailsComplete: false,
-      confirmComplete: false
+      confirmComplete: false,
+      workTaskEdit: false,
+      open: false
     }
   }
 
@@ -30,12 +33,35 @@ class EstimateContainer extends Component {
     this.setState({[formType]: formValues})
   }
 
+  editWorkTask = (workTask) => {
+    this.setState({open: true, workTaskEdit: workTask})
+  }
+
   handleWorkTaskSubmit = (newWorkTask) => {
+    const index = this.filterForWorkTaskIndex(newWorkTask)
+    index !== -1 ? this.submitEditedTask(newWorkTask, index) : this.submitNewTask(newWorkTask)
+  }
+
+  submitEditedTask = (newWorkTask, index) => {
+    const newResources = this.state.resources
+    newResources[index] = newWorkTask
+    this.setState({resources: newResources})
+  }
+
+  submitNewTask = (newWorkTask) => {
     this.setState({resources: [...this.state.resources, newWorkTask]})
+  }
+
+  filterForWorkTaskIndex = (newWorkTask) => {
+    return this.state.resources.findIndex(workTask => workTask.id === newWorkTask.id)
   }
 
   handleStepFinalize = (step) => {
     this.setState({[step]: true})
+  }
+
+  setOpen = (status) => {
+    status ? this.setState({open: status}) : this.setState({open: status, workTaskEdit: false})
   }
 
   renderStepCards = () => {
@@ -94,7 +120,8 @@ class EstimateContainer extends Component {
                    />
                  <Route
                    exact path="/resources"
-                   render={(props) => <ResourcesContainer resources={this.state.resources} handleStepFinalize={this.handleStepFinalize} handleWorkTaskSubmit={this.handleWorkTaskSubmit} history={props.history} />}
+                   render={(props) => <ResourcesContainer resources={this.state.resources} handleStepFinalize={this.handleStepFinalize}
+                   editWorkTask={this.editWorkTask} handleWorkTaskSubmit={this.handleWorkTaskSubmit} history={props.history} />}
                    />
                  <Route
                    exact path="/confirm"
@@ -105,7 +132,7 @@ class EstimateContainer extends Component {
             </Grid>
           </Container>
         </Grid.Row>
-
+        {this.state.open && <TaskModal setOpen={this.setOpen} open={this.state.open} workTaskEdit={this.state.workTaskEdit} hideBtn={true} handleWorkTaskSubmit={this.handleWorkTaskSubmit}/>}
       </Grid>
     )
   }

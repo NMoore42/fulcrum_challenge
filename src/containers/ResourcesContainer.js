@@ -22,7 +22,7 @@ class ResourcesContainer extends Component {
 
   renderWorkCards = () => {
     return <Table.Body>
-            {this.props.resources.map( workTask => <WorkCard workTask={workTask} />)}
+            {this.props.resources.map( workTask => <WorkCard workTask={workTask} editWorkTask={this.props.editWorkTask}/>)}
            </Table.Body>
   }
 
@@ -83,7 +83,7 @@ class ResourcesContainer extends Component {
           {!!this.props.resources.length || this.renderTaskStatement()}
         </div>
         <Grid.Row className="work-task-btn-spacer">
-          <TaskModal setOpen={this.setOpen} open={this.state.open} handleWorkTaskSubmit={this.props.handleWorkTaskSubmit}/>
+          <TaskModal setOpen={this.setOpen} open={this.state.open} handleWorkTaskSubmit={this.props.handleWorkTaskSubmit} />
         </Grid.Row>
 
         <Button content="Back" floated="left" onClick={() => this.handleStepClick("/details")} />

@@ -35,7 +35,8 @@ class ConfirmContainer extends Component {
              <Container textAlign="center">
                <Icon name='magnify' size='massive' />
                <Divider hidden></Divider>
-               <EstimateReviewModal {...this.props.estimate} confirmReview={this.confirmReview} handleStepFinalize={this.props.handleStepFinalize} />
+               <EstimateReviewModal {...this.props.estimate}
+                 confirmReview={this.confirmReview} handleStepFinalize={this.props.handleStepFinalize} />
              </Container>
            </Grid.Column>
 
@@ -43,7 +44,11 @@ class ConfirmContainer extends Component {
              <Container textAlign="center">
                <Icon name='check circle outline' size='massive' />
                <Divider hidden></Divider>
-               <Button disabled={!this.state.reviewed} content='Submit Estimate' size='massive' onClick={this.submitEstimate}/>
+               <Button
+                 disabled={!this.state.reviewed}
+                 content='Submit Estimate'
+                 size='massive'
+                 onClick={this.submitEstimate}/>
              </Container>
            </Grid.Column>
            <Grid.Row className="form-spacer">

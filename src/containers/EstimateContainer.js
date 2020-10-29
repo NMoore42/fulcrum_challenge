@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Container, Image, Button, Grid, Icon, Step } from 'semantic-ui-react';
+import { Container, Image, Grid, Step } from 'semantic-ui-react';
 import { Route } from 'react-router-dom';
 import StepCard from '../components/StepCard'
 import DetailsContainer from './DetailsContainer'
@@ -75,13 +75,13 @@ class EstimateContainer extends Component {
       return <StepCard
                 step={step}
                 key={index}
-                active={this.state.active == step.name}
+                active={this.state.active === step.name}
              />
     })
   }
 
   render(){
-    const { details, resources, confirm, active } = this.state
+    const { details, resources } = this.state
     return(
 
       <Grid centered>
@@ -116,11 +116,11 @@ class EstimateContainer extends Component {
               <Grid.Column fluid>
                  <Route
                    exact path="/details"
-                   render={(props) => <DetailsContainer details={this.state.details} handleSubmit={this.handleSubmit} history={props.history} handleStepFinalize={this.handleStepFinalize}/>}
+                   render={(props) => <DetailsContainer details={details} handleSubmit={this.handleSubmit} history={props.history} handleStepFinalize={this.handleStepFinalize}/>}
                    />
                  <Route
                    exact path="/resources"
-                   render={(props) => <ResourcesContainer resources={this.state.resources} handleStepFinalize={this.handleStepFinalize}
+                   render={(props) => <ResourcesContainer resources={resources} handleStepFinalize={this.handleStepFinalize}
                    editWorkTask={this.editWorkTask} handleWorkTaskSubmit={this.handleWorkTaskSubmit} history={props.history} />}
                    />
                  <Route

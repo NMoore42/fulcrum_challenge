@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Button, Header, Image, Modal, Form, Container, Message } from 'semantic-ui-react'
+import { Button, Modal, Form, Container, Message } from 'semantic-ui-react'
 import NewItemCard from './NewItemCard'
 import uuid from 'react-uuid'
 
@@ -118,17 +118,29 @@ class TaskModal extends Component {
         onClose={() => this.props.setOpen(false)}
         onOpen={() => this.props.setOpen(true)}
         open={this.props.open}
-        trigger={<div hidden={this.props.hideBtn}><Button style={{marginTop : 7}} circular icon='plus' floated="right" size="huge" /></div>}
-      >
+        trigger={
+          <div hidden={this.props.hideBtn}>
+            <Button style={{marginTop : 7}} circular icon='plus' floated="right" size="huge" />
+          </div>}>
         <Modal.Header>{this.newOrEdit()} Work Task</Modal.Header>
         <Modal.Content>
           <Form>
             <Form.Group widths='equal'>
-              <Form.Input fluid label='Work Task' placeholder='Enter work task description' name="workTask" value={this.state.workTask} onChange={this.handleWorkTaskChange}/>
+              <Form.Input
+                fluid
+                label='Work Task'
+                placeholder='Enter work task description'
+                name="workTask"
+                value={this.state.workTask}
+                onChange={this.handleWorkTaskChange}/>
             </Form.Group>
               {this.renderNewItemCards()}
             <Container textAlign="center">
-              <Form.Button disabled={!this.areFieldsComplete()} circular icon='plus' onClick={this.addNewItemCard} />
+              <Form.Button
+                disabled={!this.areFieldsComplete()}
+                circular
+                icon='plus'
+                onClick={this.addNewItemCard} />
             </Container>
           </Form>
         </Modal.Content>

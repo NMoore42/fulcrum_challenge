@@ -98,7 +98,6 @@ class DetailsContainer extends Component {
        <Form.Group widths='equal'>
          <Form.Input
           fluid
-          error={{ content: 'Please enter your first name', pointing: 'below' }}
           label='Technician First Name'
           placeholder='Technician First Name'
           name='firstName'
